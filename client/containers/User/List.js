@@ -5,8 +5,9 @@ import { setBreadcrumb } from '../../reducer/modules/user';
 //import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Table, Popconfirm, message, Input } from 'antd';
+import { Table, Popconfirm, message, Input, Button, Modal } from 'antd';
 import axios from 'axios';
+import AddUserForm from './AddUserForm'
 
 const Search = Input.Search;
 const limit = 20;
@@ -28,7 +29,8 @@ class List extends Component {
       total: null,
       current: 1,
       backups: [],
-      isSearch: false
+      isSearch: false,
+      showAdd: false
     };
   }
   static propTypes = {
@@ -216,6 +218,9 @@ class List extends Component {
             placeholder="请输入用户名"
           />
         </div>
+        <div style={{margin: '5px 0 10px 0'}}>
+          <Button onClick={() => this.setState({ showAdd: true })}>添加用户</Button>
+        </div>
         <Table
           bordered={true}
           rowKey={record => record._id}
@@ -223,6 +228,18 @@ class List extends Component {
           pagination={this.state.isSearch ? defaultPageConfig : pageConfig}
           dataSource={data}
         />
+        {this.state.showAdd ? <Modal 
+            title="添加用户"
+            visible={this.state.showAdd}
+            onCancel={() => this.setState({ showAdd: false })}
+            footer={null}>
+          <AddUserForm 
+            onSubmit={() => {
+              this.setState({ showAdd: false })
+              this.getUserList()
+            }} 
+            onCancel={() => this.setState({ showAdd: false })} />
+        </Modal> : null}
       </section>
     );
   }

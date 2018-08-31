@@ -2,7 +2,7 @@ import React, { PureComponent as Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Route, BrowserRouter as Router } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Redirect } from 'react-router-dom';
 import { Home, Group, Project, Follows, AddProject, Login } from './containers/index';
 import { Alert } from 'antd';
 import User from './containers/User/User.js';
@@ -119,7 +119,7 @@ export default class App extends Component {
                   return key === 'login' ? (
                     <Route key={key} path={item.path} component={item.component} />
                   ) : key === 'home' ? (
-                    <Route key={key} exact path={item.path} component={item.component} />
+                    this.props.loginState !== 2 ? <Redirect to="/login" /> : <Redirect to="/group" />
                   ) : (
                     <Route
                       key={key}

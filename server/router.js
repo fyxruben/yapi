@@ -107,11 +107,11 @@ let routerConfig = {
       path: 'login',
       method: 'post'
     },
-    {
-      action: 'reg',
-      path: 'reg',
-      method: 'post'
-    },
+    // {
+    //   action: 'reg',
+    //   path: 'reg',
+    //   method: 'post'
+    // },
     {
       action: 'list',
       path: 'list',
@@ -180,6 +180,11 @@ let routerConfig = {
     {
       action: 'uploadAvatar',
       path: 'upload_avatar',
+      method: 'post'
+    },
+    {
+      action: 'add',
+      path: 'add',
       method: 'post'
     }
   ],
